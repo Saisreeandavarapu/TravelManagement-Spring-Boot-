@@ -28,38 +28,38 @@ public class PaymentService {
        payment.setBooking(bookingid);
          paymentRepo.save(payment);
         Registration customer =bookingid.getRegistration();
-        String subject = "Payment Successful";
-
-        String body = """
-Hello %s,
-
-Your payment has been received successfully.
-
-Payment Details:
-
-Booking ID : %d
-Package Name : %s
-Amount Paid : ₹%.2f
-Payment Method : %s
-Payment Date : %s
-
-Thank you for choosing our service.
-
-Travel Management Team
-""".formatted(
-        customer.getFirstName(),
-                bookingid.getId(),
-                bookingid.getAPackage().getTitle(),
-                payment.getAmount(),
-                payment.getPaymentMethod(),
-                payment.getPaymentDate()
-        );
-//%d - integer
-        //%S -string
-        //%b- boolean
-        //%f -float,double
-        emailService.sendEmail(customer.getEmail(),subject,body);
-        System.out.println("Payment Email sent Successfully");
+//        String subject = "Payment Successful";
+//
+//        String body = """
+//Hello %s,
+//
+//Your payment has been received successfully.
+//
+//Payment Details:
+//
+//Booking ID : %d
+//Package Name : %s
+//Amount Paid : ₹%.2f
+//Payment Method : %s
+//Payment Date : %s
+//
+//Thank you for choosing our service.
+//
+//Travel Management Team
+//""".formatted(
+//        customer.getFirstName(),
+//                bookingid.getId(),
+//                bookingid.getAPackage().getTitle(),
+//                payment.getAmount(),
+//                payment.getPaymentMethod(),
+//                payment.getPaymentDate()
+//        );
+////%d - integer
+//        //%S -string
+//        //%b- boolean
+//        //%f -float,double
+//        emailService.sendEmail(customer.getEmail(),subject,body);
+//        System.out.println("Payment Email sent Successfully");
          return paymentRepo.findAll();
     }
 
@@ -106,5 +106,9 @@ Travel Management Team
 
     public Long rejectCount() {
         return paymentRepo.countByPaymentStatus("FAILED");
+    }
+
+    public List<Payment> addAllPayments(List<Payment> payments) {
+        return paymentRepo.saveAll(payments);
     }
 }

@@ -62,4 +62,9 @@ public class PaymentController {
     {
         return service.rejectCount();
     }
+    @PostMapping("/addAll")
+    public List<Payment> addAllPayments(@RequestBody List<Payment> payments)
+    {
+        return service.addAllPayments(payments);
+    }
 }

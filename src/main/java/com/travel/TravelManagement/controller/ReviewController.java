@@ -26,5 +26,9 @@ public class ReviewController {
     {
         return service.deleteReviewById(id);
     }
+    @PostMapping("/addAll")
+    public List<Review> addAllReviews(@RequestBody List<Review> reviews){
+        return service.addSllReviews(reviews);
+    }
 
 }

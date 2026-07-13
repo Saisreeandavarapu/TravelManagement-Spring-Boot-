@@ -89,8 +89,9 @@ Please be ready for the trip.
 
 Travel Management Team
 """.formatted(
-        driverDetails.getId(),
+                booking.getId(),
                 reg.getFirstName(),
+                reg.getLastName(),
                 reg.getEmail(),
                 reg.getPhoneNumber(),
                 pack.getTitle(),
@@ -200,5 +201,9 @@ Travel Management Team
 
     public List<Booking> getBookingByPackage(Long id) {
         return repo.findByaPackageId(id);
+    }
+
+    public List<Booking> addAllBookings(List<Booking> bookings) {
+        return repo.saveAll(bookings);
     }
 }

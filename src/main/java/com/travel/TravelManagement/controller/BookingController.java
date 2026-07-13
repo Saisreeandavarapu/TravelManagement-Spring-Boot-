@@ -49,4 +49,9 @@ public class BookingController {
     public List<Booking> getBookingByPackage(@PathVariable Long id){
     return service.getBookingByPackage(id);
     }
+    @PostMapping("/addAll")
+    public List<Booking> addAllBookings(@RequestBody List<Booking> bookings)
+    {
+        return service.addAllBookings(bookings);
+    }
 }

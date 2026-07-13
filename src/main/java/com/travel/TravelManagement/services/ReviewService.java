@@ -36,4 +36,8 @@ public class ReviewService {
          reviewRepo.deleteById(id);
          return reviewRepo.findAll();
     }
+
+    public List<Review> addSllReviews(List<Review> reviews) {
+        return reviewRepo.saveAll(reviews);
+    }
 }
