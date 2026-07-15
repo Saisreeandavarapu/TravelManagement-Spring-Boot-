@@ -1,12 +1,13 @@
 package com.travel.TravelManagement.services;
 
 import com.travel.TravelManagement.AdvancedServices.EmailService;
+import com.travel.TravelManagement.DTO.LoginResponse;
+import com.travel.TravelManagement.jwt.JwtService;
 import com.travel.TravelManagement.DTO.LoginDTO;
 import com.travel.TravelManagement.model.Registration;
 import com.travel.TravelManagement.repo.RegistrationRepo;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.server.servlet.Session;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -20,9 +21,12 @@ public class RegistrationService {
     private EmailService emailService;
     @Autowired
     public BCryptPasswordEncoder passwordEncoder;
+    @Autowired
+    private JwtService  jwtService;
     public List<Registration> createUser(Registration registration) {
         registration.setPassword(passwordEncoder.encode(registration.getPassword()));
          repo.save(registration);
+        System.out.println("Sending email...");
         String subject = "Registration Successful";
 
         String body = """
@@ -84,7 +88,7 @@ Travel Management Team
         return repo.save(updateRegistration);
     }
 
-    public Registration login(LoginDTO login,HttpSession session) {
+    public LoginResponse login(LoginDTO login, HttpSession session) {
         Registration registration = repo.findByEmail(login.getEmail());
         boolean valid=passwordEncoder.matches(login.getPassword(),registration.getPassword());
         if (!valid) {
@@ -93,7 +97,13 @@ Travel Management Team
         }
         session.setAttribute("userID",registration.getId());
         session.setAttribute("Role",registration.getRole());//role based open dashboard.
-        return registration;
+        String token= jwtService.generateToken(registration.getEmail());
+        LoginResponse response = new LoginResponse();
+        response.setToken(token);
+        response.setId(registration.getId());
+        response.setRole(registration.getRole());
+        response.setPassword(registration.getEmail());
+         return response;
 
     }
 

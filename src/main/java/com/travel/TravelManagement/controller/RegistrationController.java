@@ -1,6 +1,7 @@
 package com.travel.TravelManagement.controller;
 
 import com.travel.TravelManagement.DTO.LoginDTO;
+import com.travel.TravelManagement.DTO.LoginResponse;
 import com.travel.TravelManagement.model.Registration;
 import com.travel.TravelManagement.services.RegistrationService;
 import jakarta.servlet.http.HttpSession;
@@ -49,7 +50,7 @@ public class RegistrationController {
         return service.resetPassword(id,registration);
     }
     @PostMapping("/login")
-    public Registration login(@RequestBody LoginDTO login,HttpSession session)
+    public LoginResponse login(@RequestBody LoginDTO login, HttpSession session)
     {
         return service.login(login,session);
     }
