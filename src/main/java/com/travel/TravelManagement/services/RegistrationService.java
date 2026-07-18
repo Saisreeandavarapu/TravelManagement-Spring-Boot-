@@ -97,7 +97,7 @@ Travel Management Team
         }
         session.setAttribute("userID",registration.getId());
         session.setAttribute("Role",registration.getRole());//role based open dashboard.
-        String token= jwtService.generateToken(registration.getEmail());
+        String token= jwtService.generateToken(registration);//token will be genearted
         LoginResponse response = new LoginResponse();
         response.setToken(token);
         response.setId(registration.getId());
