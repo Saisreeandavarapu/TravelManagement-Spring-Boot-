@@ -19,7 +19,7 @@ public class CorsConfig {
                 registry.addMapping("/**")
 
                         .allowedOrigins(
-                                "https://travel-management-admin.vercel.app")
+                                "https://travelmanagement-spring-boot-api.onrender.com")
 
                         .allowedMethods(
                                 "GET",
