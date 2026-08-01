@@ -8,23 +8,25 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
-
 public class SecurityConfig {
+
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
-        return  new BCryptPasswordEncoder();
+        return new BCryptPasswordEncoder();
     }
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
 
-        httpSecurity
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+
+        http
                 .csrf(csrf -> csrf.disable())
+                .cors(cors -> {})
                 .authorizeHttpRequests(auth -> auth
                         .anyRequest().permitAll()
                 )
                 .formLogin(form -> form.disable())
-                .httpBasic(http -> http.disable());
+                .httpBasic(httpBasic -> httpBasic.disable());
 
-        return httpSecurity.build();
+        return http.build();
     }
 }
