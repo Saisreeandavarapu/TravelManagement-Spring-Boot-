@@ -56,7 +56,10 @@ public class RegistrationService {
     }
 
     public List<Registration> getAllUsers() {
-        return repo.findAll();
+        System.out.println("Fetching all users...");
+        List<Registration> users = repo.findAll();
+        System.out.println("Users found: " + users.size());
+        return users;
     }
 
     public List<Registration> updateUser(Registration registration,Long id) {
@@ -90,10 +93,17 @@ public class RegistrationService {
 
     public LoginResponse login(LoginDTO login, HttpSession session) {
         Registration registration = repo.findByEmail(login.getEmail());
-        boolean valid=passwordEncoder.matches(login.getPassword(),registration.getPassword());
-        if (!valid) {
-           throw new RuntimeException("Registration not found");
 
+        if (registration == null) {
+            throw new RuntimeException("User not found");
+        }
+
+        boolean valid = passwordEncoder.matches(
+                login.getPassword(),
+                registration.getPassword());
+
+        if (!valid) {
+            throw new RuntimeException("Invalid password");
         }
         session.setAttribute("userID",registration.getId());
         session.setAttribute("Role",registration.getRole());//role based open dashboard.

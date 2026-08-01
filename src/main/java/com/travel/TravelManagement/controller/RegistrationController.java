@@ -29,7 +29,7 @@ public class RegistrationController {
     {
         return service.getAllUsers();
     }
-    @PutMapping("/update")
+    @PutMapping("/update/{id}")
     public List<Registration> updateUser(@RequestBody Registration registration ,@PathVariable Long id)
     {
         return service.updateUser(registration,id);

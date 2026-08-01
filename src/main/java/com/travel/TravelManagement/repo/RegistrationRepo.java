@@ -9,9 +9,7 @@ import org.springframework.stereotype.Repository;
 public interface RegistrationRepo extends JpaRepository<Registration,Long> {
 
     Registration findByEmailAndPassword(String email, String password);
-
     Long findByrole(String admin);
-
 
     Registration findByEmail(String email);
 }
