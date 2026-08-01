@@ -26,32 +26,32 @@ public class RegistrationService {
     public List<Registration> createUser(Registration registration) {
         registration.setPassword(passwordEncoder.encode(registration.getPassword()));
          repo.save(registration);
-        System.out.println("Sending email...");
-        String subject = "Registration Successful";
-
-        String body = """
-Hello %s,
-
-Your registration has been completed successfully.
-
-Registration Details:
-
-Name : %s %s
-Email : %s
-Phone Number : %s
-
-Thank you for registering with Travel Management System.
-
-Travel Management Team
-""".formatted(
-        registration.getFirstName(),
-                registration.getFirstName(),
-                registration.getLastName(),
-                registration.getEmail(),
-                registration.getPhoneNumber()
-        );
-        emailService.sendEmail(registration.getEmail(),subject,body);
-        System.out.println("Registration Successful sent email msg");
+//        System.out.println("Sending email...");
+//        String subject = "Registration Successful";
+//
+//        String body = """
+//Hello %s,
+//
+//Your registration has been completed successfully.
+//
+//Registration Details:
+//
+//Name : %s %s
+//Email : %s
+//Phone Number : %s
+//
+//Thank you for registering with Travel Management System.
+//
+//Travel Management Team
+//""".formatted(
+//        registration.getFirstName(),
+//                registration.getFirstName(),
+//                registration.getLastName(),
+//                registration.getEmail(),
+//                registration.getPhoneNumber()
+//        );
+//        emailService.sendEmail(registration.getEmail(),subject,body);
+//        System.out.println("Registration Successful sent email msg");
          return repo.findAll();
     }
 
